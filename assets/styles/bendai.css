@@ -1,27 +1,35 @@
 
 body {
-	background-color: #000;
-	color: #eee;
+	background-color: #fff;
+	color: #222;
 	font-family: "Lucida Grande", "Trebuchet MS", Helvetica, Arial, sans-serif;
 	font-size: 13px;
 	text-align: center;
 }
 
 h1,h2,h3,h4 {
-	font-family: "Goudy Bookletter 1911", "Caslon Pro", Newzald, Georgia, serif;
+	font-family: Georgia, serif;
+}
+
+h1 {
+	font-size: 20pt;
 }
 
 a {
-	color: #CBF2FF;
+	color: #831228;
 }
 
 #no-javascript {
 	border: 1px solid #FF9F93;
-	background-color: #660505;
+	background-color: #831228;
 	font-size: 18pt;
 	color: #fff;
 	padding: 1em;
 	margin: 1em auto;
 	text-align: left;
 	width: 450px;
+}
+
+#no-javascript a {
+	color: #DAF3FF;
 }
