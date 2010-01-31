@@ -4,7 +4,17 @@ body {
 	color: #222;
 	font-family: "Lucida Grande", "Trebuchet MS", Helvetica, Arial, sans-serif;
 	font-size: 13px;
-	text-align: center;
+}
+
+#topbar {
+	background: #eee url(/assets/ui/topback.png) top left repeat-x;
+	height: 51px;
+	border-bottom: 1px solid #bbb;
+}
+
+.pagewidth {
+	width: 960px;
+	margin: 0 auto;
 }
 
 h1,h2,h3,h4 {
@@ -19,17 +29,25 @@ a {
 	color: #831228;
 }
 
-#no-javascript {
-	border: 1px solid #FF9F93;
+.notice {
 	background-color: #831228;
-	font-size: 18pt;
 	color: #fff;
 	padding: 1em;
 	margin: 1em auto;
 	text-align: left;
 	width: 450px;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
 }
 
-#no-javascript a {
+#no-javascript {
+	font-size: 18pt;
+}
+
+#loader {
+	text-align: center;
+}
+
+.notice a {
 	color: #DAF3FF;
 }
