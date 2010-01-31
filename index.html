@@ -3,6 +3,8 @@
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<title>bendai redux</title>
+		<link rel="stylesheet" href="/assets/styles/reset.css" type="text/css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="/assets/styles/text.css" type="text/css" media="screen" charset="utf-8">
 		<link rel="stylesheet" href="/assets/styles/bendai.css" type="text/css" media="screen" charset="utf-8">
 		<link rel="stylesheet" href="/assets/styles/jquery.gritter.css" type="text/css" media="screen" charset="utf-8">
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
@@ -10,16 +12,26 @@
 		<script src="/js/bendai.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
-		<h1>Welcome warrior... to Bendai</h1>
-		<div id="no-javascript">
-			This game requires extensive use of Javascript, which your browser doesn't support or has disabled.
-			If you want to play, you will need to sort that out. For more info read our <a href="/docs/browsers">documentation</a>.
+		<div id="topbar">
+			<div class="pagewidth">
+				<img src="/assets/ui/logo.png" alt="bendai">
+			</div>
 		</div>
-		<script type="text/javascript" charset="utf-8">
-			$('#no-javascript').hide(); // Checking for javascript essentially.
-		</script>
-		<div id="initial-menu">
+		<div class="pagewidth">
+			<div id="no-javascript" class="notice">
+				This game requires extensive use of Javascript, which your browser doesn't support or has disabled.
+				If you want to play, you will need to sort that out. For more info read our <a href="/docs/browsers">documentation</a>.
+			</div>
+			<script type="text/javascript" charset="utf-8">
+				$('#no-javascript').hide(); // Checking for javascript essentially.
+			</script>
+			<div id="loader" class="notice">
+				<p>Loading game...</p>
+				<img src="/assets/ui/load-bar.gif">
+			</div>
+			<div id="initial-menu">
 			
+			</div>	
 		</div>
 	</body>
 </html>
