@@ -1,6 +1,18 @@
+// 
+//  bendai.js
+//  bendai
+//  
+//  Created by Colin Bate on 2010-01-30.
+//  Bendai Project
+// 
+
 // global debug function: safely print to console
 function bdebug(msg) {
 	(window.console) && console.log(msg);
+}
+
+function strdefined(v) {
+	return (v != undefined && v != '');
 }
 
 var Bendai = function(scripts) {
@@ -12,17 +24,24 @@ var Bendai = function(scripts) {
 }
 
 // Create authoritative bendai object.
-var bendai = new Bendai(['player']);
+var bendai = new Bendai([
+	'player'
+	,'party'
+	]);
 
 // Used for visual notifications to the user.
-Bendai.prototype.notify = function(title, msg, sticky) {
+Bendai.notify = function(title, msg, sticky) {
 	$.gritter.add({'title':title,'text':msg});
+}
+
+Bendai.showError = function(msg) {
+	Bendai.notify('Error', msg);
 }
 
 Bendai.prototype.loadScript = function() {
 	this._loadcount++;
 	if (this._loadcount == this.scripts.length) {
-		this.startGame();
+		$($.proxy(this.startGame, this));
 	}
 }
 
@@ -38,17 +57,38 @@ Bendai.prototype.loadScripts = function() {
 }
 
 Bendai.prototype.startGame = function() {
-	$(function(){
-		// Start the game.
-		bdebug('Starting game...');
-		$('#loader').hide();
-	});
+	// Start the game.
+	bdebug('Starting game...');
+	bdebug(this);
+	this.$ga = $('#gamearea');
+	this.$input = $('#bendai-input');
+	this.$infield = $('#bendai-input-field');
+	this.$output = $('#bendai-output');
+	this.$party = $('#bendai-party');
+	this.$enemies = $('#bendai-enemies');
+	$('#loader').fadeOut();
+	var gaheight = $(window).height() - this.$ga.offset().top;
+	this.$ga.height(gaheight);
+	var w;
+	this.$input.width(w = this.$ga.width());
+	var ow = this.$infield.outerWidth();
+	this.$infield.width(w - (ow - w));
+	this.loadParty();
 }
 
-$(function() {
-	$('#loader img').click(function(){
-		bendai.notify('Check', 'All is well here!');
-	});
-});
+Bendai.prototype.loadParty = function() {
+	bdebug('Loading party.');
+	this.party.init(this.$party, 'My Party');
+	if (this.party == undefined) {
+		bdebug('Party module not loaded.');
+		return;
+	}
+	// Testing adding players.
+	this.party.AddPlayer(this.Characters.GetNewPlayer('CALL', 100, 'fighter'));
+	this.party.AddPlayer(this.Characters.GetNewPlayer('ADAM', 95, 'blackbelt'));
+	this.party.AddPlayer(this.Characters.GetNewPlayer('DEEN', 90, 'whitemage'));
+	this.party.AddPlayer(this.Characters.GetNewPlayer('COOL', 90, 'blackmage'));
+	
+}
 
 bendai.loadScripts();

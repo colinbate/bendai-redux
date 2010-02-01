@@ -15,6 +15,7 @@
 		<div id="topbar">
 			<div class="pagewidth">
 				<img src="/assets/ui/logo.png" alt="bendai">
+				<div id="loader"><img src="/assets/ui/load-arrows.gif"> <span>Loading...</span></div>
 			</div>
 		</div>
 		<div class="pagewidth">
@@ -25,12 +26,11 @@
 			<script type="text/javascript" charset="utf-8">
 				$('#no-javascript').hide(); // Checking for javascript essentially.
 			</script>
-			<div id="loader" class="notice">
-				<p>Loading game...</p>
-				<img src="/assets/ui/load-bar.gif">
-			</div>
-			<div id="initial-menu">
-			
+			<div id="gamearea">
+				<div id="bendai-enemies"></div>
+				<div id="bendai-party"><h2>Party</h2></div>
+				<div id="bendai-output"></div>
+				<div id="bendai-input"><input type="text" name="bendai-input-field" value="" id="bendai-input-field"></div>
 			</div>	
 		</div>
 	</body>

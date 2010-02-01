@@ -10,11 +10,13 @@ body {
 	background: #eee url(/assets/ui/topback.png) top left repeat-x;
 	height: 51px;
 	border-bottom: 1px solid #bbb;
+	position: relative;
 }
 
 .pagewidth {
 	width: 960px;
 	margin: 0 auto;
+	position: relative;
 }
 
 h1,h2,h3,h4 {
@@ -46,8 +48,61 @@ a {
 
 #loader {
 	text-align: center;
+	position: absolute;
+	right: 0;
+	top: 17px;
+	line-height: 16px;
+}
+
+#loader span {
+	position: relative;
+	top: -3px;
 }
 
 .notice a {
 	color: #DAF3FF;
+}
+
+/* LAYOUT
+* ----------------------------- */
+
+#gamearea {
+	position: relative;
+	background-color: #fcc;
+}
+
+#bendai-enemies {
+	
+}
+
+#bendai-party {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 120px;
+	border: 1px solid #999;
+	text-align: center;
+}
+
+#bendai-party h2 {
+	font-size: 12pt;
+}
+
+#bendai-output {
+	
+}
+
+#bendai-input {
+	position: absolute;
+	left: 0;
+	bottom: 5px;
+}
+
+#bendai-input input {
+	width: 100%;
+	border: 0;
+	font-size: 14pt;
+	padding: 4px 4px 4px 24px;
+	background: #fff url(/assets/ui/comment.png) 4px center no-repeat;
+	border: 1px solid #999;
 }
