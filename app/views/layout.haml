@@ -8,7 +8,7 @@
     %link(rel="stylesheet" href="/assets/style/bendai.css" type="text/css" media="screen" charset="utf-8")
     %link(rel="stylesheet" href="/assets/style/jquery.gritter.css" type="text/css" media="screen" charset="utf-8")
     %script(type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js")
-    - @scripts.each do |s|
+    - @scripts && @scripts.each do |s|
       %script{:type => "text/javascript",
               "charset" => "utf-8",
               :src => s}
