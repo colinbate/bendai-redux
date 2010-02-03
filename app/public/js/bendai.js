@@ -21,7 +21,7 @@ var Bendai = function(scripts) {
 	this.toString = function() {
 		return "Bendai object";
 	}
-	this.user = 'CALL';
+	this.user = 'COOL';
 }
 
 // Create authoritative bendai object.
