@@ -21,12 +21,14 @@ var Bendai = function(scripts) {
 	this.toString = function() {
 		return "Bendai object";
 	}
+	this.user = 'CALL';
 }
 
 // Create authoritative bendai object.
 var bendai = new Bendai([
 	'player'
 	,'party'
+	,'chat'
 	]);
 
 // Used for visual notifications to the user.
@@ -67,13 +69,23 @@ Bendai.prototype.startGame = function() {
 	this.$party = $('#bendai-party');
 	this.$enemies = $('#bendai-enemies');
 	$('#loader').fadeOut();
-	var gaheight = $(window).height() - this.$ga.offset().top;
+	var gaheight = $(window).height() - this.$ga.offset().top - 5;
 	this.$ga.height(gaheight);
-	var w;
-	this.$input.width(w = this.$ga.width());
-	var ow = this.$infield.outerWidth();
-	this.$infield.width(w - (ow - w));
+	this.$party.height(gaheight-2);
+	bdebug('ga: ' + gaheight);
+	var leftheight = this.$enemies.outerHeight(true) + this.$output.outerHeight(true) + this.$input.outerHeight(true);
+	bdebug('enemies: ' + this.$enemies.outerHeight(true));
+	bdebug('output: ' + this.$output.outerHeight(true));
+	bdebug('input: ' + this.$input.outerHeight(true));
+	bdebug('left: ' + leftheight);
+	this.$output.height(this.$output.height() + (gaheight - leftheight));
+	
+	this.setupChat();
 	this.loadParty();
+	$('<img>').attr('src', '/assets/sprites/ogre.gif').load(function(){
+		$t = $(this);
+		$t.width($t.width()*2);
+	}).appendTo(this.$enemies);
 }
 
 Bendai.prototype.loadParty = function() {

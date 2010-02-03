@@ -68,20 +68,27 @@ a {
 
 #gamearea {
 	position: relative;
-	background-color: #fcc;
+	top: 5px;
 }
 
 #bendai-enemies {
-	
+	width: 833px;
+	border: 1px solid #999;
+	height: 250px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
 }
 
 #bendai-party {
 	position: absolute;
 	top: 0;
 	right: 0;
-	width: 120px;
+	width: 118px;
 	border: 1px solid #999;
 	text-align: center;
+	overflow: auto;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
 }
 
 #bendai-party h2 {
@@ -89,13 +96,25 @@ a {
 }
 
 #bendai-output {
-	
+	width: 833px;
+	border: 1px solid #999;
+	height: 100px;
+	background-color: #fff;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	margin-top: 5px;
+	overflow: auto;
+}
+
+#bendai-output div {
+	margin: 0 5px;
 }
 
 #bendai-input {
-	position: absolute;
+	position: relative;
 	left: 0;
-	bottom: 5px;
+	width: 805px;
+	margin-top: 3px;
 }
 
 #bendai-input input {
@@ -105,4 +124,6 @@ a {
 	padding: 4px 4px 4px 24px;
 	background: #fff url(/assets/ui/comment.png) 4px center no-repeat;
 	border: 1px solid #999;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
 }
