@@ -12,8 +12,8 @@
 	if (undefined == Bendai || undefined == $) return;
 	
 	var submitMessage = function() {
-		this.$output.addMessage(this.$infield.val(), this.user);
-		this.$infield.val('');
+		this.parent.$output.addMessage(this.parent.$infield.val(), this.user.email);
+		this.parent.$infield.val('');
 	}
 	
 	var addMessage = function(msg, username) {
@@ -23,13 +23,21 @@
 
 	Bendai.prototype.setupChat = function() {
 		this.$output.addMessage = addMessage;
-		Bendai.prototype.submitChatMessage = submitMessage;
 		var t = this;
+		Bendai.prototype.chat = {
+			parent: t,
+			system: sendSysMsg,
+			sendMessage: submitMessage
+		}
 		this.$infield.keypress(function(ev){
 			if (ev.keyCode == '13') {
-				t.submitChatMessage();
+				t.chat.sendMessage();
 			}
 		});
+	}
+	
+	var sendSysMsg = function(msg) {
+		this.parent.$output.addMessage(msg);
 	}
 	
 })(Bendai,jQuery);

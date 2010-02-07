@@ -11,9 +11,12 @@ require 'digest/sha2'
 class User
   include MongoMapper::Document
   
-  key :email, String
-  key :password, String
-  key :salt, String
+  key :email, String, :required => true
+  key :password, String, :required => true
+  key :salt, String, :required => true
+  key :session_id, String
+  key :session_started, DateTime
+  key :total_play, Float
   
   def set_password(pwd)
     self.salt = gen_salt();
@@ -29,6 +32,7 @@ class User
   end
   
   def self.gen_salt()
+    salt = ""
     salt = 64.times { salt << (i = Kernel.rand(62); i += ((i < 10) ? 48 : ((i < 36) ? 55 : 61 ))).chr }
     salt
   end
