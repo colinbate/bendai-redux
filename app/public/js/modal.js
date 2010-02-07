@@ -14,6 +14,14 @@
 	var formLoaded = function(mform, opts) {
 		mform.find('form').ajaxForm({
 			dataType: 'json',
+			beforeSubmit: function() {
+				var ret = true;
+				if (opts.preSubmit) {
+					ret = opts.preSubmit(mform);
+				}
+				ret && $('#loader').show();
+				return ret; 
+			},
 			success: function(data) { formSubmitted(mform, opts, data); }
 		});
 		$('#nottopbar').block({message: null, onBlock: function(){
@@ -29,6 +37,7 @@
 		if (data.form_message) {
 			mform.html(data.form_message);
 		}
+		$('#loader').hide();
 		$.doTimeout('modalwindow.close', opts.autoHideDelay, function(){
 			closeMW(mform, opts.onClose, data);
 		})
@@ -69,6 +78,7 @@
 				html: undefined,
 				onOpen: undefined,
 				onClose: undefined,
+				preSubmit: undefined,
 				autoHideDelay: 1000,
 				blocking: false // Not sure how to do this ATM.
 			}
@@ -79,8 +89,8 @@
 			}
 		}
 		
-		this.load = function(url, width, delay, onClose) {
-			this.show({url: url, width: width, onClose: onClose, autoHideDelay: delay});
+		this.load = function(url, width, delay, onClose, preSubmit) {
+			this.show({url: url, width: width, onClose: onClose, autoHideDelay: delay, preSubmit: preSubmit});
 		}
 		
 	}
