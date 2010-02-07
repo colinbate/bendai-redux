@@ -24,6 +24,7 @@ post '/game/user/auth' do
   if (params['email'] == 'colin@colinbate.com' || params['email' == 'bate.peter@gmail.com']) then
     r = {'success' => true, 'email' => params['email']}
     r['session_id'] = User.gen_salt
+    r['session_start'] = Time.now.to_s
     r['form_message'] = 'User logged in!';
     return r.to_json
   end
