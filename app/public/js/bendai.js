@@ -21,14 +21,15 @@ var Bendai = function(scripts) {
 	this.toString = function() {
 		return "Bendai object";
 	}
-	this.user = 'CALL';
 }
 
 // Create authoritative bendai object.
 var bendai = new Bendai([
-	'player'
+	'user'
+	,'player'
 	,'party'
 	,'chat'
+	,'modal'
 	]);
 
 // Used for visual notifications to the user.
@@ -61,31 +62,54 @@ Bendai.prototype.loadScripts = function() {
 Bendai.prototype.startGame = function() {
 	// Start the game.
 	bdebug('Starting game...');
-	bdebug(this);
+	
+	// Set DOM components.
 	this.$ga = $('#gamearea');
 	this.$input = $('#bendai-input');
 	this.$infield = $('#bendai-input-field');
 	this.$output = $('#bendai-output');
 	this.$party = $('#bendai-party');
 	this.$enemies = $('#bendai-enemies');
+	this.$menu = $('#bendai-menu');
+	this.$modal = $('#bendai-modal');
+	Bendai.modalWindow.init(this.$modal);
+	
+	// Fill browser window. And ensure it stays full.
+	this.arrangeScreen();
+	var myself = this;
+	$(window).resize(function(){
+		$.doTimeout('resizescreen', 250, $.proxy(myself.arrangeScreen, myself));
+	})
+	
+	// Get rid of the loading indicator.
 	$('#loader').fadeOut();
-	var gaheight = $(window).height() - this.$ga.offset().top - 5;
-	this.$ga.height(gaheight);
-	this.$party.height(gaheight-2);
-	bdebug('ga: ' + gaheight);
-	var leftheight = this.$enemies.outerHeight(true) + this.$output.outerHeight(true) + this.$input.outerHeight(true);
-	bdebug('enemies: ' + this.$enemies.outerHeight(true));
-	bdebug('output: ' + this.$output.outerHeight(true));
-	bdebug('input: ' + this.$input.outerHeight(true));
-	bdebug('left: ' + leftheight);
-	this.$output.height(this.$output.height() + (gaheight - leftheight));
 	
 	this.setupChat();
+	this.user.addLoginListener($.proxy(this.loadGameData, this));
+	this.user.loginPrompt();
+}
+
+Bendai.prototype.loadGameData = function(user) {
+	Bendai.notify('Logged in', user.email + ' just logged in.');
 	this.loadParty();
+	
+	
+	// Load a demo sprite for the enemy.
 	$('<img>').attr('src', '/assets/sprites/ogre.gif').load(function(){
 		$t = $(this);
 		$t.width($t.width()*2);
 	}).appendTo(this.$enemies);
+}
+
+Bendai.prototype.arrangeScreen = function() {
+	// Find the available height for the game area and adjust.
+	var gaheight = $(window).height() - this.$ga.offset().top - 5;
+	this.$ga.height(gaheight);
+	this.$party.height(gaheight-2);
+	
+	// Find height available for the chat/game output.
+	var leftheight = this.$enemies.outerHeight(true) + this.$output.outerHeight(true) + this.$input.outerHeight(true);
+	this.$output.height(this.$output.height() + (gaheight - leftheight));
 }
 
 Bendai.prototype.loadParty = function() {
