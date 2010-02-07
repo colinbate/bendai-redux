@@ -90,6 +90,7 @@ Bendai.prototype.startGame = function() {
 }
 
 Bendai.prototype.loadGameData = function(user) {
+	if (!user.isLoggedIn()) return;
 	Bendai.notify('Logged in', user.email + ' just logged in.');
 	this.loadParty();
 	

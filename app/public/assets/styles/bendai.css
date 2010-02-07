@@ -160,6 +160,8 @@ form .form-note {
 
 #bendai-modal form label {
 	display: block;
+	position: relative;
+	font-size: 13pt;
 	margin-top: 5px;
 }
 
@@ -171,6 +173,23 @@ form .form-note {
 #bendai-modal form input[type=password] {
 	width: 99%;
 	font-size: 16pt;
+}
+
+form .validate-fail {
+	background: url(/assets/ui/cancel.png) right center no-repeat;
+	padding: 0 20px 0 0;
+}
+
+form .validate-fail span {
+	position: absolute;
+	right: 24px;
+	top: 4px;
+	font-size: 9pt;
+	color: #f44;
+}
+
+form .validate-pass {
+	background: url(/assets/ui/accept.png) right center no-repeat;	
 }
 
 
