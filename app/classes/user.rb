@@ -33,7 +33,7 @@ class User
   
   def self.gen_salt()
     salt = ""
-    salt = 64.times { salt << (i = Kernel.rand(62); i += ((i < 10) ? 48 : ((i < 36) ? 55 : 61 ))).chr }
+    64.times { salt << (i = Kernel.rand(62); i += ((i < 10) ? 48 : ((i < 36) ? 55 : 61 ))).chr }
     salt
   end
 end
