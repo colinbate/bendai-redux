@@ -58,7 +58,7 @@
 		
 		this.loginPrompt = function() {
 			var myself = this;
-			Bendai.modalWindow.load('/game/ui/login', 400, 2000, function(data) { verifyLogin(myself, data); }, validateLoginForm);
+			Bendai.modalWindow.load('/game/ui/login', 400, 10, function(data) { verifyLogin(myself, data); }, validateLoginForm);
 		}
 		
 		this.isLoggedIn = function() {

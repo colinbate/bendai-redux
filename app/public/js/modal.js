@@ -14,23 +14,26 @@
 	var formLoaded = function(mform, opts) {
 		mform.find('form').ajaxForm({
 			dataType: 'json',
-			beforeSubmit: function() {
+			beforeSubmit: function(vals, f, afo) {
 				var ret = true;
 				if (opts.preSubmit) {
-					ret = opts.preSubmit(mform);
+					ret = opts.preSubmit(mform, vals);
 				}
 				ret && $('#loader').show();
 				return ret; 
 			},
 			success: function(data) { formSubmitted(mform, opts, data); }
 		});
-		$('#nottopbar').block({message: null, onBlock: function(){
-			mform.width(opts.width).center().css('zIndex', 2000).slideDown('normal', function(){
-				mform.find(':text:first').focus();
-				opts.onOpen && opts.onOpen();
-			});
-		}})
-		
+		if (opts.replace && mwin.is(':visible')) {
+			
+		} else {
+			$('#nottopbar').block({message: null, onBlock: function(){
+				mform.width(opts.width).center().css('zIndex', 2000).slideDown('normal', function(){
+					mform.find(':text:first').focus();
+					opts.onOpen && opts.onOpen();
+				});
+			}})
+		}
 	}
 	
 	var formSubmitted = function(mform, opts, data) {
@@ -80,6 +83,7 @@
 				onClose: undefined,
 				preSubmit: undefined,
 				autoHideDelay: 1000,
+				replace: false,
 				blocking: false // Not sure how to do this ATM.
 			}
 			$.extend(opts, options);
@@ -91,6 +95,10 @@
 		
 		this.load = function(url, width, delay, onClose, preSubmit) {
 			this.show({url: url, width: width, onClose: onClose, autoHideDelay: delay, preSubmit: preSubmit});
+		}
+		
+		this.replace = function(url, delay, onClose, preSubmit) {
+			this.show({url: url, onClose: onClose, autoHideDelay: delay, preSubmit: preSubmit, replace: true});
 		}
 		
 	}

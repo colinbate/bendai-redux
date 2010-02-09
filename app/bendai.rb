@@ -32,5 +32,14 @@ post '/game/user/auth' do
 end
 
 get '/game/ui/login' do haml :login, :layout => false end
+  
+get '/game/ui/choose-game' do haml :choosegame, :layout => false end
 
+post '/game/world/load' do
+  content_type :json
+  
+  {'success' => false, 'form_message' => 'Could not locate game.'}.to_json
+end
+
+get '/game/ui/create-character' do haml :createchar, :layout => false end
     
