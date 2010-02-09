@@ -44,9 +44,10 @@
 		//bdebug('Choice: ' + $choice.val() + ' length: ' + $choice.length);
 		if (newgame) {
 			bdebug('Loading create character UI...');
+			console.trace();
 			Bendai.modalWindow.replace('/game/ui/create-character', 2000, 
 										function(data){newGame(data,bendai)},
-										function(mwin,vals){validateNewGame(mwin,vals,bendai)});
+										function(mwin,vals){return validateNewGame(mwin,vals,bendai)});
 			return false;
 		}
 	}
@@ -56,7 +57,7 @@
 		var b = this;
 		Bendai.modalWindow.load('/game/ui/choose-game', 400, 2000,
 								function(data){loadGame(data, b);},
-								function(mwin, vals){checkForNewGame(mwin,vals,b);});
+								function(mwin, vals){return checkForNewGame(mwin,vals,b);});
 	}
 	
 	Bendai.prototype.chooseGame = chooseGame;

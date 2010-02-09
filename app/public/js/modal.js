@@ -24,8 +24,9 @@
 			},
 			success: function(data) { formSubmitted(mform, opts, data); }
 		});
-		if (opts.replace && mwin.is(':visible')) {
-			
+		if (opts.replace && mform.is(':visible')) {
+			mform.find(':text:first').focus();
+			opts.onOpen && opts.onOpen();
 		} else {
 			$('#nottopbar').block({message: null, onBlock: function(){
 				mform.width(opts.width).center().css('zIndex', 2000).slideDown('normal', function(){
