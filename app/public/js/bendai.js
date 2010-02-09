@@ -130,4 +130,4 @@ Bendai.prototype.loadParty = function() {
 	
 }
 
-bendai.loadScripts();
+//bendai.loadScripts();
