@@ -127,3 +127,87 @@ a {
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 }
+
+#bendai-menu {
+	position: absolute;
+	display: none;
+}
+
+/* FORMS
+* --------------------- */
+
+#bendai-modal {
+	position: absolute;
+	top: 0;
+	background: #000;
+	color: #fff;
+	display: none;
+	padding: 15px;
+	-moz-border-radius-bottomleft: 15px;
+	-webkit-border-bottom-left-radius: 15px;
+	-moz-border-radius-bottomright: 15px;
+	-webkit-border-bottom-right-radius: 15px;
+}
+
+#bendai-modal .wrap {
+	padding: 15px;
+}
+
+form .form-note {
+	
+}
+
+#bendai-modal form {
+	
+}
+
+#bendai-modal form label {
+	display: block;
+	position: relative;
+	font-size: 13pt;
+	margin-top: 5px;
+}
+
+#bendai-modal form input[type=text] {
+	width: 99%;
+	font-size: 16pt;
+}
+
+#bendai-modal form input[type=password] {
+	width: 99%;
+	font-size: 16pt;
+}
+
+form .validate-fail {
+	background: url(/assets/ui/cancel.png) right center no-repeat;
+	padding: 0 20px 0 0;
+}
+
+form .validate-fail span {
+	position: absolute;
+	right: 24px;
+	top: 4px;
+	font-size: 9pt;
+	color: #f44;
+}
+
+form .validate-pass {
+	background: url(/assets/ui/accept.png) right center no-repeat;	
+}
+
+#saved-games {
+	text-align: center;
+}
+
+#start-new-game {
+	text-align: center;
+	margin-top: 20px;
+	border-top: 1px solid #ddd;
+	padding-top: 10px;
+}
+
+#start-new-game input {
+	font-size: 16pt;
+	
+}
+

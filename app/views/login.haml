@@ -1,0 +1,12 @@
+%form#bendai-login(action="/game/user/auth" method="post")
+  %p.form-note
+    Please enter your email and password to login to your existing account, if you don't have an account, one will be created for you.
+  .field
+    %label Email
+    %input(type="text" name="email")
+  .field
+    %label Password
+    %input(type="password" name="pwd")
+  .field
+    %label
+    %input(type="submit" value="Start Playing")
