@@ -44,7 +44,6 @@
 		//bdebug('Choice: ' + $choice.val() + ' length: ' + $choice.length);
 		if (newgame) {
 			bdebug('Loading create character UI...');
-			console.trace();
 			Bendai.modalWindow.replace('/game/ui/create-character', 2000, 
 										function(data){newGame(data,bendai)},
 										function(mwin,vals){return validateNewGame(mwin,vals,bendai)});
