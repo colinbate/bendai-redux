@@ -26,6 +26,7 @@ var Bendai = function(scripts) {
 // Create authoritative bendai object.
 var bendai = new Bendai([
 	'user'
+	,'world'
 	,'player'
 	,'party'
 	,'chat'
@@ -85,13 +86,14 @@ Bendai.prototype.startGame = function() {
 	$('#loader').fadeOut();
 	
 	this.setupChat();
-	this.user.addLoginListener($.proxy(this.loadGameData, this));
+	this.user.addLoginListener($.proxy(this.chooseGame, this));
 	this.user.loginPrompt();
 }
 
 Bendai.prototype.loadGameData = function(user) {
 	if (!user.isLoggedIn()) return;
 	Bendai.notify('Logged in', user.email + ' just logged in.');
+	this.chat.system(user.email + ' just joined your party.');
 	this.loadParty();
 	
 	

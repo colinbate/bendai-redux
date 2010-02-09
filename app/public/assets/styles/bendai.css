@@ -133,6 +133,9 @@ a {
 	display: none;
 }
 
+/* FORMS
+* --------------------- */
+
 #bendai-modal {
 	position: absolute;
 	top: 0;
@@ -192,4 +195,19 @@ form .validate-pass {
 	background: url(/assets/ui/accept.png) right center no-repeat;	
 }
 
+#saved-games {
+	text-align: center;
+}
+
+#start-new-game {
+	text-align: center;
+	margin-top: 20px;
+	border-top: 1px solid #ddd;
+	padding-top: 10px;
+}
+
+#start-new-game input {
+	font-size: 16pt;
+	
+}
 
