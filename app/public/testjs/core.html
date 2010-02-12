@@ -1,0 +1,43 @@
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>Bendai JavaScript Unit tests</title>
+		<link rel="stylesheet" href="qunit.css" type="text/css" media="screen" title="QUnit" charset="utf-8">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="qunit.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/extra/jquery.gritter.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/extra/jquery.ba-dotimeout.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/extra/jquery.form.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/extra/jquery.blockUI.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/bendai.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			$(function(){
+				module('bendai');
+				
+				test('strdefined', function(){
+					equals(typeof(window.strdefined), 'function', 'strdefined is defined.');
+					var unknownVar = undefined;
+					same(strdefined(unknownVar), false, 'strdefined returns false for undefined variable.');
+					same(strdefined(''), false, 'strdefined returns false for empty string.');
+					same(strdefined(59), true, 'strdefined returns true for a number.');
+					same(strdefined('some string'), true, 'strdefined returns true for non-empty string variable.');
+				});
+				
+				test('bendai class and instance', function(){
+					ok(window.Bendai, 'Bendai class exists');
+					ok(window.bendai, 'bendai instance exists');
+					ok(Bendai.notify, 'Bendai has a notify class method');
+					ok(Bendai.showError, 'Bendai has a showError method');
+					
+				});
+			})
+		</script>
+	</head>
+	<body>
+		<div id="main"></div>
+		<h1 id="qunit-header">Bendai Tests</h1>
+		 <h2 id="qunit-banner"></h2>
+		 <h2 id="qunit-userAgent"></h2>
+		 <ol id="qunit-tests"></ol>
+	</body>
+</html>
