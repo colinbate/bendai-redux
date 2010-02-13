@@ -3,13 +3,25 @@ require "sinatra"
 require "haml"
 require "mongo_mapper"
 require "json"
-require "helper.rb"
 require "classes/user.rb"
 
 set :haml, {:attr_wrapper => '"'}
 
 MongoMapper.database = 'testdb'
 
+# Define some route wrappers
+
+def json_post(route, options={}, &block)
+  post(route, options) do
+    content_type :json
+    instance_eval(&block).to_json
+  end
+end
+
+# Routes
+# -------------------------------
+
+# Main game entry point.
 get '/' do
   @scripts = Array.new
   @scripts << '/js/extra/jquery.gritter.min.js'
@@ -26,38 +38,42 @@ get '/' do
   haml :index
 end
 
-post '/game/user/auth' do
-  content_type :json
+# Send login form
+get '/game/ui/login' do partial :login end
+
+# Authenticate the user
+json_post '/game/user/auth' do
   if (params['email'] == 'colin@colinbate.com' || params['email' == 'bate.peter@gmail.com']) then
     r = {'success' => true, 'email' => params['email']}
     r['session_id'] = User.gen_salt
     r['session_start'] = Time.now.to_s
     r['form_message'] = 'User logged in!';
-    Helper.set_user_session(r['session_id'], response)
-    return r.to_json
+    set_user_session(r['session_id'])
+    r
+  else
+    form_fail 'Validation failed.'
   end
-  {'success' => false, 'form_message' => 'Validation failed.'}.to_json
 end
 
-get '/game/ui/login' do haml :login, :layout => false end
-  
-get '/game/ui/choose-game' do haml :choosegame, :layout => false end
+# Send the game chooser form
+get '/game/ui/choose-game' do partial :choosegame end
 
-post '/game/world/load' do
-  content_type :json
-  if (Helper.user_session(request) == false) then
-    {'success' => false, 'form_message' => 'User not logged in.'}.to_json
+# Load a game
+json_post '/game/world/load' do
+  if (user_session == false) then
+    {'success' => false, 'form_message' => 'User not logged in.'}
+  else
+    form_fail 'Could not locate game.'
   end
-  {'success' => false, 'form_message' => 'Could not locate game.'}.to_json
 end
 
-get '/game/ui/create-character' do haml :createchar, :layout => false end
+# Send the new character form
+get '/game/ui/create-character' do partial :createchar end
 
-post '/game/player/create' do
-  content_type :json
-  
-  {'success' => false, 'form_message' => 'Could not create or save character'}.to_json
+# Create a new character and join it to a (new) game
+json_post '/game/player/create' do
+  form_fail 'Could not create or save character'
 end
 
-
+load "helper.rb"
     

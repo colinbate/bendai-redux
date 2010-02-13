@@ -39,6 +39,8 @@
 	
 	var formSubmitted = function(mform, opts, data) {
 		if (data.form_message) {
+			// TODO: there should be some way for the caller to signal the form to stay open (on error say)
+			// TODO: form message should be added to the form as a warning
 			mform.html(data.form_message);
 		}
 		$('#loader').hide();

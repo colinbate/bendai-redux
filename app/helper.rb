@@ -1,15 +1,21 @@
-require "rubygems"
-require "sinatra"
 
-class Helper
-  @@session_name = "bendai-user-session"
-  def self.user_session(req)
-    sid = req.cookies[@@session_name]
+helpers do
+  Session_name = "bendai-user-session"
+  def user_session
+    sid = request.cookies[Session_name]
     sid ||= false
     return sid
   end
   
-  def self.set_user_session(sid, res)
-    res.set_cookie(@@session_name, {:value => sid, :path => '/game/'})
+  def set_user_session(sid)
+    response.set_cookie(Session_name, {:value => sid, :path => '/game/'})
+  end
+  
+  def partial(page, options={})
+    haml page, options.merge!(:layout => false)
+  end
+  
+  def form_fail(msg)
+    {'success' => false, 'form_message' => msg}
   end
 end
