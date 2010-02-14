@@ -1,12 +1,17 @@
 %form#create-character
   .form-note
+    You are starting a new game with a new party, so you will need to give it a name.
+  .field
+    %label Party name
+    %input#party(type="text" name="party")
+  .form-note
     Creating your character is as easy as giving it a name and choosing a class.
   .field
     %label Name
-    %input(type="text" name="name")
+    %input#name(type="text" name="name")
   .field
     %label Class
-    %input(type="text" name="class")
+    %input#charclass(type="text" name="charclass")
   .field
     %label
     %input(type="submit" value="Create")

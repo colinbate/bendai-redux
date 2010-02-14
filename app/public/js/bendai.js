@@ -60,9 +60,10 @@ Bendai.prototype.loadScripts = function() {
 	})
 }
 
-Bendai.prototype.startGame = function() {
+Bendai.prototype.startGame = function(loggedin) {
 	// Start the game.
 	bdebug('Starting game...');
+	$('#loader').show();
 	
 	// Set DOM components.
 	this.$ga = $('#gamearea');
@@ -87,7 +88,7 @@ Bendai.prototype.startGame = function() {
 	
 	this.setupChat();
 	this.user.addLoginListener($.proxy(this.chooseGame, this));
-	this.user.loginPrompt();
+	this.user.loginPrompt(loggedin);
 }
 
 Bendai.prototype.loadGameData = function(user) {

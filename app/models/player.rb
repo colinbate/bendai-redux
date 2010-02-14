@@ -1,5 +1,5 @@
 # 
-#  session.rb
+#  player.rb
 #  bendai
 #  
 #  Created by Colin Bate on 2010-02-06.

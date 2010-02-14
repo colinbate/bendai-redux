@@ -3,7 +3,7 @@ require "sinatra"
 require "haml"
 require "mongo_mapper"
 require "json"
-require "classes/user.rb"
+require "models/user.rb"
 
 set :haml, {:attr_wrapper => '"'}
 
@@ -18,16 +18,25 @@ def json_post(route, options={}, &block)
   end
 end
 
+def json_get(route, options={}, &block)
+  get(route, options) do
+    content_type :json
+    instance_eval(&block).to_json
+  end
+end
+
 # Routes
 # -------------------------------
 
 # Main game entry point.
 get '/' do
+  @logged_in = authorized?
   @scripts = Array.new
   @scripts << '/js/extra/jquery.gritter.min.js'
   @scripts << '/js/extra/jquery.ba-dotimeout.min.js'
   @scripts << '/js/extra/jquery.form.js'
   @scripts << '/js/extra/jquery.blockUI.js'
+  @scripts << '/js/jquery.wiggle.js'
   @scripts << '/js/bendai.js'
   @scripts << '/js/user.js'
 	@scripts << '/js/world.js'
@@ -39,19 +48,30 @@ get '/' do
 end
 
 # Send login form
-get '/game/ui/login' do partial :login end
+get '/game/ui/login' do partial(:login, {}, true) end
 
 # Authenticate the user
 json_post '/game/user/auth' do
-  if (params['email'] == 'colin@colinbate.com' || params['email' == 'bate.peter@gmail.com']) then
-    r = {'success' => true, 'email' => params['email']}
-    r['session_id'] = User.gen_salt
-    r['session_start'] = Time.now.to_s
-    r['form_message'] = 'User logged in!';
-    set_user_session(r['session_id'])
-    r
+  u = User.first(:email => params['email'])
+  if u then
+    if u.check_password(params['pwd']) then
+      u.session_id = User.gen_salt
+      u.session_start = Time.now.to_s
+      u.save()
+      set_user_session(u.session_id)
+      form_ok 'User logged in!', u.to_hash
+    else
+      form_fail 'Validation failed.', false
+    end
   else
-    form_fail 'Validation failed.'
+    user = User.create({})
+    user.email = params['email']
+    user.session_id = User.gen_salt
+    user.session_start = Time.now.to_s
+    user.set_password(params['pwd'])
+    user.save()
+    set_user_session(user.session_id)
+    form_ok 'User created for ' + params['email'] + '!', user.to_hash
   end
 end
 
@@ -60,11 +80,8 @@ get '/game/ui/choose-game' do partial :choosegame end
 
 # Load a game
 json_post '/game/world/load' do
-  if (user_session == false) then
-    {'success' => false, 'form_message' => 'User not logged in.'}
-  else
-    form_fail 'Could not locate game.'
-  end
+  protect!
+  form_fail 'Could not locate game.'
 end
 
 # Send the new character form
@@ -72,6 +89,7 @@ get '/game/ui/create-character' do partial :createchar end
 
 # Create a new character and join it to a (new) game
 json_post '/game/player/create' do
+  protect!
   form_fail 'Could not create or save character'
 end
 

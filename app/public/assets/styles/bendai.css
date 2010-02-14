@@ -52,6 +52,7 @@ a {
 	right: 0;
 	top: 17px;
 	line-height: 16px;
+	display: none;
 }
 
 #loader span {
@@ -171,11 +172,13 @@ form .form-note {
 #bendai-modal form input[type=text] {
 	width: 99%;
 	font-size: 16pt;
+	margin-bottom: 7px;
 }
 
 #bendai-modal form input[type=password] {
 	width: 99%;
 	font-size: 16pt;
+	margin-bottom: 7px;
 }
 
 form .validate-fail {
