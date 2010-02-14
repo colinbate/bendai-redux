@@ -18,7 +18,7 @@
 			user.email = data.email;
 			user.logged_in = true;
 		}
-		$.each(user.notify_list, function(k,v){ v(user); })
+		trigger_login(user);
 	}
 	
 	var email_regex = /^[a-z0-9._%+-]+@(?:[a-z0-9-]+\.)+[a-z]{2,4}$/i;
@@ -45,6 +45,10 @@
 		return ret;
 	}
 	
+	var trigger_login = function(user) {
+		$.each(user.notify_list, function(k,v){ v(user); });
+	}
+	
 	var User = function() {
 		this.session_id = null;
 		this.session_start = null;
@@ -56,9 +60,14 @@
 			this.notify_list.push(fn);
 		}
 		
-		this.loginPrompt = function() {
+		this.loginPrompt = function(loggedin) {
 			var myself = this;
-			Bendai.modalWindow.load('/game/ui/login', 400, 10, function(data) { verifyLogin(myself, data); }, validateLoginForm);
+			if (loggedin) {
+				this.logged_in = true;
+				trigger_login(this);
+			} else {
+				Bendai.modalWindow.load('/game/ui/login', 400, 10, function(data) { verifyLogin(myself, data); }, validateLoginForm);
+			}
 		}
 		
 		this.isLoggedIn = function() {

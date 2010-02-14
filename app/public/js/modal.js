@@ -38,18 +38,34 @@
 	}
 	
 	var formSubmitted = function(mform, opts, data) {
-		if (data.form_message) {
-			// TODO: there should be some way for the caller to signal the form to stay open (on error say)
-			// TODO: form message should be added to the form as a warning
-			mform.html(data.form_message);
-		}
 		$('#loader').hide();
-		$.doTimeout('modalwindow.close', opts.autoHideDelay, function(){
-			closeMW(mform, opts.onClose, data);
-		})
-		mform.click(function(){
-			$.doTimeout('modalwindow.close', false);
-		})
+		if (data.form && !data.form.close) {
+			if (data.form && data.form.message) {
+				var $fsm = mform.find('.form-server-msg');
+				if ($fsm.length > 0) {
+					$fsm.html(data.form.message).wiggle();
+				} else {
+					$('<div/>')
+						.addClass('form-server-msg')
+						.html(data.form.message)
+						.hide()
+						.appendTo(mform)
+						.fadeIn('normal');
+				}
+			}
+			opts.onClose && opts.onClose(data)
+		} else {
+			if (data.form && data.form.message) {
+				mform.html(data.form.message);
+			}
+			$.doTimeout('modalwindow.close', opts.autoHideDelay, function(){
+				closeMW(mform, opts.onClose, data);
+			})
+			mform.click(function(){
+				$.doTimeout('modalwindow.close', false);
+			})
+		}
+		
 		
 	}
 	
